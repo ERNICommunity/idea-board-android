@@ -9,5 +9,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-
+    <string-array name="menu_items">
+        <item>Section 1</item>
+        <item>Section 2</item>
+        <item>Section 3</item>
+    </string-array>
 </resources>
