@@ -3,8 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#42e6f1"
-    tools:context="community.erninet.ch.ideaboard.Section1">
+    tools:context="community.erninet.ch.ideaboard.controller.Section1">
 
 
-
+    <ListView
+        android:id="@+id/lvTweetsErni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 </FrameLayout>

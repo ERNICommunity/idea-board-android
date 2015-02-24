@@ -1,21 +1,23 @@
-package community.erninet.ch.ideaboard;
+package community.erninet.ch.ideaboard.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;import java.lang.Override;
+import android.view.ViewGroup;
+
+import community.erninet.ch.ideaboard.R;
 
 
 public class Section2 extends Fragment {
 
+    public Section2() {
+        // Required empty public constructor
+    }
+
     public static Section2 newInstance() {
         Section2 fragment = new Section2();
         return fragment;
-    }
-
-    public Section2() {
-        // Required empty public constructor
     }
 
     @Override
