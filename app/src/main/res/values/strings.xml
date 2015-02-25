@@ -10,7 +10,7 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string-array name="menu_items">
-        <item>ERNI Idea Board</item>
+        <item>ERNI Tweets</item>
         <item>ERNI Tweets</item>
         <item>Charlie Sheen Tweets</item>
     </string-array>
