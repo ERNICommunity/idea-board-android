@@ -30,7 +30,7 @@ import retrofit.mime.TypedString;
  * are automatically bound to a listView (via TwitterAdapter )and displayed in the UI. Authentication
  * with Twitter works via OAuth2 application-only authentication
  */
-public class TwitterService {
+public class TwitterServiceRecycle {
 
     /**
      * This callback is executed as soon as retrofit gets a result from the Twitter status-API.
@@ -43,8 +43,7 @@ public class TwitterService {
          * The methods arguments include the resulting list of Tweets and the plain http-response.
          * The only thing that the method does, is updating the adapter with the new tweets, such that
          * they are displayed in the connected listView.
-         *
-         * @param tweets   ArrayList of ErniTweet objects that have been retrieved from Twitter
+         * @param tweets ArrayList of ErniTweet objects that have been retrieved from Twitter
          * @param response Plain http response
          */
         @Override
@@ -105,7 +104,7 @@ public class TwitterService {
             Log.d("Error: ", retrofitError.getResponse().toString());
         }
     };
-    private TwitterAdapter adapter = null; //Adapter object, that will connect the results to a listView
+    private TwitterAdapterRecycle adapter = null; //Adapter object, that will connect the results to a listView
     private TwitterAPI service; //instance member of the API-interface
     //variables that are needed to generate the authentication-string
     private String base64Encoded = "";
@@ -116,7 +115,7 @@ public class TwitterService {
      * The constructor sets up the gson-converter and the retrofit REST-adapter. Additionally, the
      * necessary variables for Twitter OAuth2 authentication are generate.
      */
-    public TwitterService() {
+    public TwitterServiceRecycle() {
         //create a new gson object
         Gson gson = new GsonBuilder()
                 //specify, that the attributes are all lowercase and with underscores
@@ -146,14 +145,16 @@ public class TwitterService {
 
     /**
      * This method sets the ArrayAdapter to be used when a list of tweets is retrieved.
+     *
      * @param adapter Object of type TwitterAdapter
      */
-    public void setAdapter(TwitterAdapter adapter) {
+    public void setAdapter(TwitterAdapterRecycle adapter) {
         this.adapter = adapter;
     }
 
     /**
      * Tha API will retrieve tweets of the specified twitter-user
+     *
      * @param username
      */
     public void setUsername(String username) {

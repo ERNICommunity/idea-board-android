@@ -2,22 +2,24 @@ package community.erninet.ch.ideaboard.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import community.erninet.ch.ideaboard.R;
-import community.erninet.ch.ideaboard.adapter.TwitterAdapter;
-import community.erninet.ch.ideaboard.adapter.TwitterService;
+import community.erninet.ch.ideaboard.adapter.TwitterAdapterRecycle;
+import community.erninet.ch.ideaboard.adapter.TwitterServiceRecycle;
 import community.erninet.ch.ideaboard.model.ErniTweet;
 
 
 public class Section3 extends Fragment {
-    private TwitterService service;
-    private TwitterAdapter adapterCharlie;
+    private TwitterServiceRecycle service;
+    private TwitterAdapterRecycle adapterCharlie;
 
     public Section3() {
         // Required empty public constructor
@@ -35,11 +37,11 @@ public class Section3 extends Fragment {
         // Construct the data source
         ArrayList<ErniTweet> tweetArray = new ArrayList<ErniTweet>();
         // Create the adapter to convert the array to views
-        adapterCharlie = new TwitterAdapter(getActivity(), tweetArray);
+        adapterCharlie = new TwitterAdapterRecycle(tweetArray);
         // Attach the adapter to a ListView
 
 
-        service = new TwitterService();
+        service = new TwitterServiceRecycle();
         service.setAdapter(adapterCharlie);
         service.setUsername("charliesheen");
 
@@ -56,8 +58,30 @@ public class Section3 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ListView listView = (ListView) getActivity().findViewById(R.id.lvTweetsSheen);
-        listView.setAdapter(adapterCharlie);
+        RecyclerView myView = (RecyclerView) getActivity().findViewById(R.id.rvCharlie);
+
+        ImageView myImage2 = (ImageView) getActivity().findViewById(R.id.imageView2);
+        ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageView1);
+
+        myImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterCharlie.clear();
+            }
+        });
+
+        myImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                service.getTweets();
+            }
+        });
+
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        myView.setLayoutManager(mLayoutManager);
+
+        myView.setAdapter(adapterCharlie);
 
         service.getTweets();
     }
