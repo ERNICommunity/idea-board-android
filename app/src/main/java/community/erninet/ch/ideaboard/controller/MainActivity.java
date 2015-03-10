@@ -6,63 +6,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-
 import community.erninet.ch.ideaboard.R;
-import community.erninet.ch.ideaboard.adapter.TwitterAdapter;
-import community.erninet.ch.ideaboard.model.ErniTweet;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-
-    private final Callback tweetDaniCallback = new Callback<ArrayList<ErniTweet>>() {
-        @Override
-        public void success(ArrayList<ErniTweet> tweets, Response response) {
-            adapterDani.addAll(tweets);
-        }
-
-        /**
-         * On errors inside the framework, en error message is created
-         *
-         * @param retrofitError
-         */
-        @Override
-        public void failure(RetrofitError retrofitError) {
-            RetrofitError err = retrofitError;
-
-            Log.d("Error: ", retrofitError.getResponse().toString());
-        }
-    };
-    private final Callback tweetCharlieCallback = new Callback<ArrayList<ErniTweet>>() {
-        @Override
-        public void success(ArrayList<ErniTweet> tweets, Response response) {
-            adapterCharlie.addAll(tweets);
-        }
-
-        /**
-         * On errors inside the framework, en error message is created
-         *
-         * @param retrofitError
-         */
-        @Override
-        public void failure(RetrofitError retrofitError) {
-            RetrofitError err = retrofitError;
-
-            Log.d("Error: ", retrofitError.getResponse().toString());
-        }
-    };
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private TwitterAdapter adapterDani;
-    private TwitterAdapter adapterCharlie;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,15 +49,15 @@ public class MainActivity extends ActionBarActivity
         switch (position) {
 
             case 1: // Section 2
-                transaction.replace(R.id.container, Section2.newInstance())
+                transaction.replace(R.id.container, MyIdeasFragment.newInstance())
                         .commit();
                 break;
             case 2: // Section 3
-                transaction.replace(R.id.container, Section3.newInstance())
+                transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance())
                         .commit();
                 break;
             default: // Section 1, default as initial position is 0
-                transaction.replace(R.id.container, Section1.newInstance())
+                transaction.replace(R.id.container, OverviewFragment.newInstance())
                         .commit();
 
         }

@@ -2,16 +2,16 @@
 <resources>
 
     <string name="app_name">ERNI Idea Board</string>
-    <string name="title_section1">ERNI Tweets</string>
-    <string name="title_section2">Dani Erni Tweets</string>
-    <string name="title_section3">Charlie Sheen Tweets</string>
+    <string name="title_section1">Overview</string>
+    <string name="title_section2">My Ideas</string>
+    <string name="title_section3">Discuss and Vote</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string-array name="menu_items">
-        <item>ERNI Tweets</item>
-        <item>ERNI Tweets</item>
-        <item>Charlie Sheen Tweets</item>
+        <item>Overview</item>
+        <item>My Ideas</item>
+        <item>Discuss and Vote</item>
     </string-array>
 </resources>
