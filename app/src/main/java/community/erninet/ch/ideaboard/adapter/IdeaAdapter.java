@@ -14,6 +14,7 @@ import community.erninet.ch.ideaboard.model.Idea;
 
 public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.ViewHolder> {
     private ArrayList<Idea> ideas;
+    private int layoutType = 0;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public IdeaAdapter(ArrayList<Idea> myDataset) {
@@ -69,7 +70,7 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.ViewHolder> {
         holder.txtTitle.setText(ideas.get(position).getTitle());
         holder.txtDescription.setText(ideas.get(position).getDescription());
         holder.txtAuthor.setText(ideas.get(position).getAuthor());
-        holder.txtStatus.setText(ideas.get(position).getStatus());
+        holder.txtTags.setText(ideas.get(position).getTags());
         holder.txtRating.setText(Double.toString(ideas.get(position).getRating()));
     }
 
@@ -87,7 +88,7 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.ViewHolder> {
         public TextView txtTitle;
         public TextView txtDescription;
         public TextView txtAuthor;
-        public TextView txtStatus;
+        public TextView txtTags;
         public TextView txtRating;
 
         public ViewHolder(View v) {
@@ -95,7 +96,7 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.ViewHolder> {
             txtTitle = (TextView) v.findViewById(R.id.ideaTitleText);
             txtDescription = (TextView) v.findViewById(R.id.ideaDescriptionText);
             txtAuthor = (TextView) v.findViewById(R.id.ideaAuthorText);
-            txtStatus = (TextView) v.findViewById(R.id.ideaStatusText);
+            txtTags = (TextView) v.findViewById(R.id.ideaTagsText);
             txtRating = (TextView) v.findViewById(R.id.ideaRatingText);
         }
     }

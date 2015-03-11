@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import community.erninet.ch.ideaboard.R;
+import community.erninet.ch.ideaboard.application.Globals;
 
 
 public class MainActivity extends ActionBarActivity
@@ -37,6 +38,9 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onResume() {
         super.onResume();
+        if (!((Globals) getApplication()).isUserLoggedIn()) {
+            //display login fragment
+        }
     }
 
     @Override
@@ -49,15 +53,17 @@ public class MainActivity extends ActionBarActivity
         switch (position) {
 
             case 1: // Section 2
-                transaction.replace(R.id.container, MyIdeasFragment.newInstance())
+                transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance(), "DISCUSS_AND_VOTE")
+
                         .commit();
                 break;
             case 2: // Section 3
-                transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance())
+                transaction.replace(R.id.container, OverviewFragment.newInstance(), "OVERVIEW")
                         .commit();
                 break;
             default: // Section 1, default as initial position is 0
-                transaction.replace(R.id.container, OverviewFragment.newInstance())
+
+                transaction.replace(R.id.container, MyIdeasFragment.newInstance(), "MY_IDEAS")
                         .commit();
 
         }

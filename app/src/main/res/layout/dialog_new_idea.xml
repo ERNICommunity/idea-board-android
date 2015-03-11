@@ -1,21 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/publishIdeaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ideaTitleTextEdit"
+        android:layout_gravity="right"
+        android:layout_marginTop="145dp"
+        android:text="Publish Idea" />
+
+    <Button
+        android:id="@+id/saveIdeaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/publishIdeaButton"
+        android:layout_gravity="center_horizontal"
+        android:text="Save Draft" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Create a new Idea!"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Idea Title" />
 
-    <Button
-        android:id="@+id/doneButton"
+    <EditText
+        android:id="@+id/ideaTitleTextEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Done" />
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="Sample Title" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ideaTitleTextEdit"
+        android:text="Description" />
+
+    <EditText
+        android:id="@+id/ideaDescriptionEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ideaTitleTextEdit"
+        android:layout_alignRight="@+id/ideaTitleTextEdit"
+        android:layout_below="@+id/ideaTitleTextEdit"
+        android:layout_toRightOf="@+id/textView2"
+        android:elegantTextHeight="false"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:text="Enter description here" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ideaDescriptionEditText"
+        android:text="Tags" />
+
+    <EditText
+        android:id="@+id/ideaTagsEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ideaDescriptionEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/ideaDescriptionEditText"
+        android:layout_below="@+id/ideaDescriptionEditText"
+        android:text="Tag1,Tag2,Tag3" />
+
+</RelativeLayout>

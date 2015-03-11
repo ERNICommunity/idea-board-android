@@ -2,16 +2,19 @@
 <resources>
 
     <string name="app_name">ERNI Idea Board</string>
-    <string name="title_section1">Overview</string>
-    <string name="title_section2">My Ideas</string>
-    <string name="title_section3">Discuss and Vote</string>
+    <string name="title_section1">My Ideas</string>
+    <string name="title_section2">Discuss and Vote</string>
+    <string name="title_section3">Overview</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string-array name="menu_items">
-        <item>Overview</item>
         <item>My Ideas</item>
         <item>Discuss and Vote</item>
+        <item>Overview</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

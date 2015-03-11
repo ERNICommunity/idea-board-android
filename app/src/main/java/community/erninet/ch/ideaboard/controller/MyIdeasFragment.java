@@ -7,19 +7,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import community.erninet.ch.ideaboard.R;
 import community.erninet.ch.ideaboard.adapter.IdeaAdapter;
 import community.erninet.ch.ideaboard.adapter.IdeasMockService;
+import community.erninet.ch.ideaboard.application.Globals;
 import community.erninet.ch.ideaboard.model.Idea;
 
 
-public class MyIdeasFragment extends Fragment {
+public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.EditIdeaDialogListener {
 
     private IdeaAdapter adapterIdea = null;
     private IdeasMockService ideaService = null;
+    private IdeaDialogFragment dialog = null;
 
     public MyIdeasFragment() {
         // Required empty public constructor
@@ -55,12 +58,36 @@ public class MyIdeasFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageViewAddIdea);
+        myImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog = new IdeaDialogFragment();
+                Fragment myFragment = getActivity().getSupportFragmentManager().findFragmentByTag("MY_IDEAS");
+                dialog.setListener((IdeaDialogFragment.EditIdeaDialogListener) myFragment);
+                dialog.show(getActivity().getFragmentManager(), "fragment_dialog");
+            }
+        });
+
+
+        // use a linear layout manager
         RecyclerView myView = (RecyclerView) getActivity().findViewById(R.id.rvMyIdeas);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         myView.setLayoutManager(mLayoutManager);
 
         myView.setAdapter(adapterIdea);
 
+        adapterIdea.addAll(ideaService.getIdeas());
+
+    }
+
+    public void onFinishEditIdea(Idea newIdea) {
+        Idea addUser = newIdea;
+        addUser.setAuthor(((Globals) getActivity().getApplication()).getUser());
+        ideaService.createIdea(addUser);
+        adapterIdea.clear();
+        adapterIdea.addAll(ideaService.getIdeas());
     }
 
 }

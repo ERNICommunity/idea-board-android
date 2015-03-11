@@ -9,6 +9,7 @@ public class Idea {
     private String author;
     private String status;
     private double rating;
+    private String tags;
 
     public Idea() {
         title = "";
@@ -16,14 +17,24 @@ public class Idea {
         author = "";
         status = "";
         rating = 0.0;
+        tags = "";
     }
 
-    public Idea(String title, String description, String author, String status, double rating) {
+    public Idea(String title, String description, String tags, String author, String status, double rating) {
         setTitle(title);
         setDescription(description);
         setAuthor(author);
         setStatus(status);
         setRating(rating);
+        setTags(tags);
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getTitle() {

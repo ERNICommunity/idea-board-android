@@ -34,12 +34,12 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/ideaStatusText"
+        android:id="@+id/ideaTagsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ideaAuthorText"
         android:layout_centerHorizontal="true"
-        android:text="status"
+        android:text="tags"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ideaStatusText"
+        android:layout_alignTop="@+id/ideaTagsText"
         android:text="rating"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 </RelativeLayout>

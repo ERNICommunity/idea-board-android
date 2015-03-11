@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,6 @@ public class OverviewFragment extends Fragment {
 
     private IdeaAdapter adapterIdea = null;
     private IdeasMockService ideaService = null;
-    private IdeaDialogFragment dialog = null;
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -53,8 +51,6 @@ public class OverviewFragment extends Fragment {
 
         ideaService = new IdeasMockService();
 
-        ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageView1);
-
 
     }
 
@@ -71,24 +67,10 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageView1);
-        myImage1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new IdeaDialogFragment();
-                dialog.show(getActivity().getFragmentManager(), "fragment_dialog");
-            }
-        });
-
-
-        // use a linear layout manager
         RecyclerView myView = (RecyclerView) getActivity().findViewById(R.id.rvIdeasOverview);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         myView.setLayoutManager(mLayoutManager);
 
         myView.setAdapter(adapterIdea);
-
-        adapterIdea.addAll(ideaService.getIdeas());
     }
 }
