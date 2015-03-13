@@ -12,14 +12,12 @@ import java.util.ArrayList;
 
 import community.erninet.ch.ideaboard.R;
 import community.erninet.ch.ideaboard.adapter.IdeaAdapter;
-import community.erninet.ch.ideaboard.adapter.IdeasMockService;
 import community.erninet.ch.ideaboard.model.Idea;
 
 
 public class OverviewFragment extends Fragment {
 
     private IdeaAdapter adapterIdea = null;
-    private IdeasMockService ideaService = null;
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -48,8 +46,6 @@ public class OverviewFragment extends Fragment {
         // Create the adapter to convert the array to views
         adapterIdea = new IdeaAdapter(ideaArray);
         // Attach the adapter to a ListView
-
-        ideaService = new IdeasMockService();
 
 
     }

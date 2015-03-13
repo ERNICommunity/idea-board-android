@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import community.erninet.ch.ideaboard.R;
 import community.erninet.ch.ideaboard.adapter.IdeaAdapter;
-import community.erninet.ch.ideaboard.adapter.IdeasMockService;
+import community.erninet.ch.ideaboard.adapter.IdeasMockarooService;
 import community.erninet.ch.ideaboard.application.Globals;
 import community.erninet.ch.ideaboard.model.Idea;
 
@@ -21,7 +21,7 @@ import community.erninet.ch.ideaboard.model.Idea;
 public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.EditIdeaDialogListener {
 
     private IdeaAdapter adapterIdea = null;
-    private IdeasMockService ideaService = null;
+    private IdeasMockarooService ideaService = null;
     private IdeaDialogFragment dialog = null;
 
     public MyIdeasFragment() {
@@ -43,7 +43,7 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         adapterIdea = new IdeaAdapter(ideaArray);
         // Attach the adapter to a ListView
 
-        ideaService = new IdeasMockService();
+        ideaService = new IdeasMockarooService(getActivity().getApplication());
 
         }
 
@@ -77,8 +77,8 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         myView.setLayoutManager(mLayoutManager);
 
         myView.setAdapter(adapterIdea);
-
-        adapterIdea.addAll(ideaService.getIdeas());
+        ideaService.setAdapter(adapterIdea);
+        ideaService.getIdeas();
 
     }
 
@@ -86,8 +86,6 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         Idea addUser = newIdea;
         addUser.setAuthor(((Globals) getActivity().getApplication()).getUser());
         ideaService.createIdea(addUser);
-        adapterIdea.clear();
-        adapterIdea.addAll(ideaService.getIdeas());
     }
 
 }

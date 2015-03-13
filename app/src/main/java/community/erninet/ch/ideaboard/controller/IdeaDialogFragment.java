@@ -38,7 +38,7 @@ public class IdeaDialogFragment extends DialogFragment {
                 String desc = ((EditText) getView().findViewById(R.id.ideaDescriptionEditText)).getText().toString();
                 String tags = ((EditText) getView().findViewById(R.id.ideaTagsEditText)).getText().toString();
                 if (mListener != null) {
-                    mListener.onFinishEditIdea(new Idea(title, desc, tags, "Droid", "Draft", 4.5));
+                    mListener.onFinishEditIdea(new Idea(Double.toString(Math.random() * 10000000), title, desc, tags, "Droid", "Draft", 4.5));
                 }
                 dismiss();
             }

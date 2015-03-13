@@ -4,6 +4,9 @@ package community.erninet.ch.ideaboard.model;
  * Created by ue65403 on 2015-03-09.
  */
 public class Idea {
+
+
+    private String id;
     private String title;
     private String description;
     private String author;
@@ -18,15 +21,25 @@ public class Idea {
         status = "";
         rating = 0.0;
         tags = "";
+        id = "";
     }
 
-    public Idea(String title, String description, String tags, String author, String status, double rating) {
+    public Idea(String id, String title, String description, String tags, String author, String status, double rating) {
         setTitle(title);
         setDescription(description);
         setAuthor(author);
         setStatus(status);
         setRating(rating);
         setTags(tags);
+        setId(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTags() {

@@ -26,7 +26,7 @@ public class Globals extends Application {
 
     @Override
     public void onCreate() {
-
+        allIdeas = new ArrayList<Idea>();
     }
 
     public boolean isUserLoggedIn() {
