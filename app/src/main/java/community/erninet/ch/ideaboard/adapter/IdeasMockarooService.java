@@ -21,24 +21,21 @@ import retrofit.http.POST;
 import retrofit.http.Query;
 
 /**
- * This class provides functionality to get the tweets for a specific twitter-user. It uses Retrofit
- * for REST-calls and gson for automatic conversion of JSON-Objects to POJOs. The resulting POJOs
- * are automatically bound to a listView (via TwitterAdapter )and displayed in the UI. Authentication
- * with Twitter works via OAuth2 application-only authentication
+ This class mocks a service to gather ideas from the backend. It uses the mockaroo API and retrofit for communication. The results are stored in the globals.
+ Afterwards an adapter is updated if attached.
  */
 public class IdeasMockarooService {
 
     /**
-     * This callback is executed as soon as retrofit gets a result from the Twitter status-API.
+     * This callback is executed as soon as retrofit gets a result from the Mockaroo-API.
      * Depending on whether the request was successful, either the function success or failure is
      * called by retrofit.
      */
     private final Callback ideaCallback = new Callback<ArrayList<Idea>>() {
         /**
-         * Method that is executed, if twitter could successfully deliver tweets from a specific user.
-         * The methods arguments include the resulting list of Tweets and the plain http-response.
+         * Method that is executed, if the mocked ideas got fetched sucessfully.
+         * The methods arguments include the resulting list of Ideas and the plain http-response.
          * The only thing that the method does, is updating the adapter with the new tweets, such that
-         * they are displayed in the connected listView.
          * @param response Plain http response
          */
         @Override
@@ -47,7 +44,7 @@ public class IdeasMockarooService {
         }
 
         /**
-         * If the tweets from Twitter could not be retrieved successfully, retrofit returns an object
+         * If the ideas from Mockaroo could not be retrieved successfully, retrofit returns an object
          * that contains detailed information about the error. We do nothing else, than displaying the
          * attached error-message in the AndroidLog.
          *
@@ -61,9 +58,9 @@ public class IdeasMockarooService {
     };
 
 
-    private IdeaAdapter adapter = null; //Adapter object, that will connect the results to a listView
+    private IdeaAdapter adapter = null; //Adapter object, that will connect the results to a recyclerView
     private IdeaMockaroo service; //instance member of the API-interface
-    private Application mApp;
+    private Application mApp; //application context to store the results to globals
 
 
     /**
@@ -83,15 +80,15 @@ public class IdeasMockarooService {
                 //specify the endpoint and the gson-converter for automatic json-conversion
                 .setEndpoint("http://www.mockaroo.com").setConverter(new GsonConverter(gson))
                 .build();
-        //tell the adapter that we are going to use the TwitterAPI-interface, which actually describes
+        //tell the adapter that we are going to use the Mockaroo-interface, which actually describes
         //the different web services
         this.service = restAdapter.create(IdeaMockaroo.class);
     }
 
     /**
-     * This method sets the ArrayAdapter to be used when a list of tweets is retrieved.
+     * This method sets the RecyclerVieewAdapter to be used when a list of ideas is retrieved.
      *
-     * @param adapter Object of type TwitterAdapter
+     * @param adapter Object of type ideaAdapter
      */
     public void setAdapter(IdeaAdapter adapter) {
         this.adapter = adapter;
@@ -99,38 +96,59 @@ public class IdeasMockarooService {
 
 
     /**
-     * This method starts an async call to Twitter, to retrieve the tweets. At the beginning, the authentication service is called.
-     * In case of a successful authentication, the service to get all the tweets is automatically called.
+     * This method starts an async call to Mockaroo (or some other backend), to retrieve the ideas.
      */
     public void getIdeas() {
         if (service != null) {
+            //API key, max 15 ideas, schema name@mockaroo, callback
             service.getMockarooIdeas("79a80540", 15, "ideaMock", ideaCallback);
         }
     }
 
+    /**
+     * This is a simple, local mock-service to add a new idea. The idea is added LOCALLY
+     * to the global-arrayList, which stores the ideas
+     *
+     * @param newIdea
+     */
     public void createIdea(Idea newIdea) {
+        //Read the ideas
         ArrayList<Idea> ideas = ((Globals) mApp).getAllIdeas();
+        //append the new one
         ideas.add(newIdea);
+        //call the method, that updates the adapter
         updateList(ideas);
     }
 
+    /**
+     * store an arrayList of Ideas in the globals and update the RecycleViewAdapter
+     * @param ideas
+     */
     private void updateList(ArrayList<Idea> ideas) {
         ((Globals) mApp).setAllIdeas(ideas);
-        adapter.clear();
-        adapter.addAll(((Globals) mApp).getAllIdeas());
+        if (adapter != null) {
+            adapter.clear();
+            adapter.addAll(((Globals) mApp).getAllIdeas());
+        }
     }
 
 
     /**
-     * Created by ue65403 on 2015-02-24.
+     * Actuall mock service interface to describe the service. This is the core of any retrofit
+     * implementation!!
      */
     public interface IdeaMockaroo {
         @Headers({"Content-Type: application/json"})
+        //POST request to mockaroo
         @POST("/api/generate.json")
         void getMockarooIdeas(
+                //API key to be used
                 @Query("key") String key,
+                //Max items retrieved
                 @Query("count") int count,
+                //schema name
                 @Query("schema") String schema,
+                //and of course a callback since we want to stay async
                 Callback<ArrayList<Idea>> ideaCallback);
     }
 

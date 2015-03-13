@@ -17,11 +17,18 @@ import community.erninet.ch.ideaboard.adapter.IdeasMockarooService;
 import community.erninet.ch.ideaboard.application.Globals;
 import community.erninet.ch.ideaboard.model.Idea;
 
+/**
+ * First fragment that provides some functionality (Loading mocked ideas and locally adding an idea
+ */
+
 
 public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.EditIdeaDialogListener {
 
+    //RecycleViewAdapter to update the list with ideas
     private IdeaAdapter adapterIdea = null;
+    //Mock Service objcet
     private IdeasMockarooService ideaService = null;
+    //Dialog fragment to create a new idea
     private IdeaDialogFragment dialog = null;
 
     public MyIdeasFragment() {
@@ -37,12 +44,12 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Construct the data source
+        // Initialize Adapter with empty array of ideas
         ArrayList<Idea> ideaArray = new ArrayList<Idea>();
         // Create the adapter to convert the array to views
         adapterIdea = new IdeaAdapter(ideaArray);
-        // Attach the adapter to a ListView
 
+        //initialize the mock service (needs to know the application context)
         ideaService = new IdeasMockarooService(getActivity().getApplication());
 
         }
@@ -59,32 +66,51 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
     public void onResume() {
         super.onResume();
 
+        //Give the button to idea some functionality
         ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageViewAddIdea);
+        //Add on click handler
         myImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Create new dialog fragment
                 dialog = new IdeaDialogFragment();
+                //Get a handle on the currently displayed fragment
                 Fragment myFragment = getActivity().getSupportFragmentManager().findFragmentByTag("MY_IDEAS");
+                //Set this fragment as listener for dialog results. the created idea will be passed back here
                 dialog.setListener((IdeaDialogFragment.EditIdeaDialogListener) myFragment);
+                //show the dialog
                 dialog.show(getActivity().getFragmentManager(), "fragment_dialog");
             }
         });
 
 
-        // use a linear layout manager
+        // use a linear layout manager to initialize the recycle view. this is standard code :)
+        //you will use it all over
         RecyclerView myView = (RecyclerView) getActivity().findViewById(R.id.rvMyIdeas);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         myView.setLayoutManager(mLayoutManager);
 
+        //set our custom adapter as adapter for the recycle view
         myView.setAdapter(adapterIdea);
+        //the service also needs to know about the adapter. it will be updated when we get results from the backend
         ideaService.setAdapter(adapterIdea);
+        //call mock service. everything that follows is handled by the (mock)-service, retrofit and the adapter
         ideaService.getIdeas();
 
     }
 
+    /**
+     * Callback when the dialog editing has finished
+     *
+     * @param newIdea
+     */
     public void onFinishEditIdea(Idea newIdea) {
         Idea addUser = newIdea;
+        //add the currently logged in user as user information from the globals
+        //TODO: this is still hardcoded. after login, the real username has to be stored
         addUser.setAuthor(((Globals) getActivity().getApplication()).getUser());
+        //add the newly created user
+        //TODO: user real implementation. The current implementation only adds a new idea locally. Didn't want to mock a post-service :)
         ideaService.createIdea(addUser);
     }
 
