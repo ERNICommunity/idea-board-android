@@ -10,9 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/ideaTitleTextEdit"
+        android:layout_below="@+id/ideaTagsView"
         android:layout_gravity="right"
-        android:layout_marginTop="145dp"
         android:text="Publish Idea" />
 
     <Button
@@ -78,14 +77,31 @@
         android:text="Tags" />
 
     <EditText
-        android:id="@+id/ideaTagsEditText"
+        android:id="@+id/ideaTagEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ideaTitleText"
+        android:layout_alignRight="@+id/ideaTitleTextEdit"
+        android:layout_below="@+id/ideaDescriptionEditText"
+        android:layout_toRightOf="@+id/textView2"
+        android:inputType="text"
+        android:maxLines="1"
+        android:text="" />
+
+    <com.ns.developer.tagview.widget.TagCloudLinkView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ideaTagsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ideaDescriptionEditText"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignStart="@+id/ideaDescriptionEditText"
-        android:layout_below="@+id/ideaDescriptionEditText"
-        android:text="Tag1,Tag2,Tag3" />
+        android:layout_below="@+id/ideaTagEditText"
+        app:deletableTextColor="#ffffff"
+        app:deletableTextSize="8sp"
+        app:isDeletable="true"
+        app:tagLayoutColor="#b5b5cc"
+        app:tagTextColor="#ffffff"
+        app:tagTextSize="8sp" />
 
 </RelativeLayout>

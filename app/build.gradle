@@ -27,4 +27,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
 
+    compile 'com.ns-developer:tagcloudview:0.1.0'
 }

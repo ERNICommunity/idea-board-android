@@ -49,6 +49,7 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         // Create the adapter to convert the array to views
         adapterIdea = new IdeaAdapter(ideaArray);
 
+
         //initialize the mock service (needs to know the application context)
         ideaService = new IdeasMockarooService(getActivity().getApplication());
 
@@ -84,13 +85,12 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         });
 
 
-        // use a linear layout manager to initialize the recycle view. this is standard code :)
-        //you will use it all over
+        //ListView myList = (ListView) getActivity().findViewById(R.id.lvMyIdeas);
+        //myList.setAdapter(adapterIdea);
         RecyclerView myView = (RecyclerView) getActivity().findViewById(R.id.rvMyIdeas);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         myView.setLayoutManager(mLayoutManager);
 
-        //set our custom adapter as adapter for the recycle view
         myView.setAdapter(adapterIdea);
         //the service also needs to know about the adapter. it will be updated when we get results from the backend
         ideaService.setAdapter(adapterIdea);

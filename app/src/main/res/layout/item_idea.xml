@@ -34,12 +34,12 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/ideaTagsText"
+        android:id="@+id/ideaStatusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ideaAuthorText"
         android:layout_centerHorizontal="true"
-        android:text="tags"
+        android:text="status"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -48,7 +48,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ideaTagsText"
+        android:layout_alignTop="@+id/ideaStatusText"
         android:text="rating"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <com.ns.developer.tagview.widget.TagCloudLinkView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ideaTagsCloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ideaStatusText"
+        android:padding="2dp"
+        app:deletableTextColor="#ffffff"
+        app:deletableTextSize="4sp"
+        app:isDeletable="false"
+        app:tagLayoutColor="#b5b5cc"
+        app:tagTextColor="#ffffff"
+        app:tagTextSize="4sp" />
 </RelativeLayout>

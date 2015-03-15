@@ -58,6 +58,7 @@ public class IdeasMockarooService {
     };
 
 
+    //private IdeaAdapterList adapter = null; //Adapter object, that will connect the results to a recyclerView
     private IdeaAdapter adapter = null; //Adapter object, that will connect the results to a recyclerView
     private IdeaMockaroo service; //instance member of the API-interface
     private Application mApp; //application context to store the results to globals
@@ -101,7 +102,7 @@ public class IdeasMockarooService {
     public void getIdeas() {
         if (service != null) {
             //API key, max 15 ideas, schema name@mockaroo, callback
-            service.getMockarooIdeas("79a80540", 15, "ideaMock", ideaCallback);
+            service.getMockarooIdeas("79a80540", 10, "ideaMock", ideaCallback);
         }
     }
 
@@ -115,8 +116,9 @@ public class IdeasMockarooService {
         //Read the ideas
         ArrayList<Idea> ideas = ((Globals) mApp).getAllIdeas();
         //append the new one
-        ideas.add(newIdea);
+        ideas.add(0, newIdea);
         //call the method, that updates the adapter
+        ((Globals) mApp).setAllIdeas(ideas);
         updateList(ideas);
     }
 
@@ -126,10 +128,8 @@ public class IdeasMockarooService {
      */
     private void updateList(ArrayList<Idea> ideas) {
         ((Globals) mApp).setAllIdeas(ideas);
-        if (adapter != null) {
-            adapter.clear();
-            adapter.addAll(((Globals) mApp).getAllIdeas());
-        }
+        adapter.clear();
+        adapter.addAll(ideas);
     }
 
 

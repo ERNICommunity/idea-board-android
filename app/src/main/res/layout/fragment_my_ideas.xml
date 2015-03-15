@@ -5,6 +5,11 @@
     android:background="#9FD9BB"
     tools:context="community.erninet.ch.ideaboard.controller.MyIdeasFragment">
 
+    <!--    <ListView
+            android:id="@+id/lvMyIdeas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>-->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMyIdeas"
         android:layout_width="match_parent"
