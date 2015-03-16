@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity
     public void onResume() {
         super.onResume();
         if (!((Globals) getApplication()).isUserLoggedIn()) {
-            getFragmentManager().beginTransaction().replace(R.id.container, LoginFragment.newInstance(), "Login").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, LoginFragment.newInstance(), "Login").commit();
         }
     }
 
@@ -78,6 +78,11 @@ public class MainActivity extends ActionBarActivity
                     break;
                 case 2: // Section 3
                     transaction.replace(R.id.container, OverviewFragment.newInstance(), "OVERVIEW")
+                            .commit();
+                    break;
+                case 3:
+                    ((Globals) getApplication()).setUserLoggedIn(false);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, LoginFragment.newInstance(), "LOGIN")
                             .commit();
                     break;
                 default: // Section 1, default as initial position is 0
