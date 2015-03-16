@@ -72,12 +72,12 @@ public class MainActivity extends ActionBarActivity
             switch (position) {
 
                 case 1: // Section 2
-                    transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance(), "DISCUSS_AND_VOTE")
+                    transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance(), "MY_IDEAS")
 
                             .commit();
                     break;
                 case 2: // Section 3
-                    transaction.replace(R.id.container, OverviewFragment.newInstance(), "OVERVIEW")
+                    transaction.replace(R.id.container, OverviewFragment.newInstance(), "DISCUSS_AND_VOTE")
                             .commit();
                     break;
                 case 3:
@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity
                     break;
                 default: // Section 1, default as initial position is 0
 
-                    transaction.replace(R.id.container, MyIdeasFragment.newInstance(), "MY_IDEAS")
+                    transaction.replace(R.id.container, MyIdeasFragment.newInstance(), "OVERVIEW")
                             .commit();
 
             }
