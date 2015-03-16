@@ -18,12 +18,6 @@ public class Globals extends Application {
     private boolean userLoggedIn = false;
     private String user = "Dummy User";
     private ArrayList<Idea> allIdeas = null;
-    private final ConnectivityManager connectivityManager;
-
-    public Globals() {
-        connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    }
 
     public String getUser() {
         return user;
@@ -55,6 +49,8 @@ public class Globals extends Application {
     }
 
     public boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnected();
     }
