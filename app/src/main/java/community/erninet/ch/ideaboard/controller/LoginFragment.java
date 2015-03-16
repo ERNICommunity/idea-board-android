@@ -8,15 +8,8 @@ import android.view.ViewGroup;
 
 import community.erninet.ch.ideaboard.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class LoginFragment extends Fragment {
+
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
     public LoginFragment() {
@@ -45,6 +38,23 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+    }
+
+    /**
+     * Handle a click on either the login button or the link to the sign-up form
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        // forward to sign-up page
+        if (v.getId() == R.id.textView2) {
+            //TODO sign-up form here
+        } else {
+            //auth
+
+        }
 
     }
 }

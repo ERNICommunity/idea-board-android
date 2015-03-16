@@ -1,6 +1,11 @@
 package community.erninet.ch.ideaboard.controller;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -8,8 +13,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import community.erninet.ch.ideaboard.R;
+import community.erninet.ch.ideaboard.adapter.UserBackend;
 import community.erninet.ch.ideaboard.application.Globals;
 
 
@@ -17,6 +24,11 @@ public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
+
+    //storage variable to handle the user-request
+    private UserBackend.OnConversionCompleted callHandlerGetUser;
+    //error handler to handle errors from the user retrieval
+    private UserBackend.OnJSONResponseError errorHandlerUser;
 
 
     @Override
@@ -106,5 +118,40 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void authorizeUser(String username, String pwd) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //again, create an object to call the user-backend
+        UserBackend getUser = new UserBackend();
+        //attached the specified handlers
+        getUser.setListener(callHandlerGetUser);
+        getUser.setErrorListener(errorHandlerUser);
 
+
+        //get user by username and password. the handlers will redirect to either the signup
+        //or the mymood, depending on whether the user exists or not
+        if (isOnline()) {
+            getUser.getUserByPassword(username, pwd);
+            //startProgress(getString(R.string.authorize_progress));
+            //progress.setTitle(getString(R.string.authorize_progress));
+        } else {
+            Toast.makeText(
+                    getBaseContext(), "No network connection",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Check, whether the network connection is available
+     *
+     * @return True if yes, False if no
+     */
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
 }
