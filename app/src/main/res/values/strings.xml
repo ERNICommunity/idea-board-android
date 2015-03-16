@@ -6,6 +6,20 @@
     <string name="title_section2">My Ideas</string>
     <string name="title_section3">Discuss and Vote</string>
 
+    <!-- String resources for SignUp-Acitvity -->
+    <string name="signUpTitle">Sign up to ERNI Moods now!</string>
+    <string name="signUpUsernameHint">Username</string>
+    <string name="signUpUsernameHint1">Username</string>
+    <string name="SignUpPasswordHint">Password</string>
+    <string name="signUpEmailHint">E-Mail</string>
+    <string name="signUpPhoneHint">Phone number</string>
+    <string name="signUpSendButton">Sign Up</string>
+    <string name="signUpUsernameErrorMessage">Username must be at least 5 characters</string>
+    <string name="signUpUsernameTakenErrorMessage">Username already taken.</string>
+    <string name="signUpEmailErrorMessage">Please enter a correct e-mail address</string>
+    <string name="signUpPasswordErrorMessage">Password must be at least 5 characters</string>
+    <string name="signUpPhoneErrorMessage">Enter a valid phone number of at least 10 characters</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>

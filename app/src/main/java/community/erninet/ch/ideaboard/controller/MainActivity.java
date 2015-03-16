@@ -1,11 +1,10 @@
 package community.erninet.ch.ideaboard.controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -33,6 +32,9 @@ public class MainActivity extends ActionBarActivity
     //error handler to handle errors from the user retrieval
     private UserBackend.OnJSONResponseError errorHandlerUser;
 
+    //progress bar to notify user about communication with the backend
+    private ProgressDialog progress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +52,17 @@ public class MainActivity extends ActionBarActivity
 
         attachUserCallbacks();
 
+        progress = new ProgressDialog(this);
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (!((Globals) getApplication()).isUserLoggedIn()) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, LoginFragment.newInstance(), "Login").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, LoginFragment.newInstance(), "LOGIN").commit();
         }
     }
 
@@ -131,8 +137,6 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void authorizeUser(String username, String pwd) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //again, create an object to call the user-backend
         UserBackend getUser = new UserBackend();
         //attached the specified handlers
         getUser.setListener(callHandlerGetUser);
@@ -142,6 +146,9 @@ public class MainActivity extends ActionBarActivity
         //get user by username and password. the handlers will redirect to either the signup
         //or the mymood, depending on whether the user exists or not
         if (isOnline()) {
+
+            progress.setTitle("Authorizing user");
+            progress.show();
             getUser.getUserByPassword(username, pwd);
             //startProgress(getString(R.string.authorize_progress));
             //progress.setTitle(getString(R.string.authorize_progress));
@@ -175,8 +182,10 @@ public class MainActivity extends ActionBarActivity
                 //display username
                 Log.d("User successfully load", user.getUsername());
                 //after authentication of the user, update the mood list
+                progress.dismiss();
                 ((Globals) getApplication()).setUser(user.getUsername());
-                ((Globals) getApplication()).setUserLoggedIn(true);
+                ((Globals) getApplication()).setUserLoggedIn(true);                
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, MyIdeasFragment.newInstance(), "MY_IDEAS").commit();
             }
         };
@@ -194,7 +203,17 @@ public class MainActivity extends ActionBarActivity
                         Toast.LENGTH_LONG).show();
 
                 Log.d("Something went wrong", e.getErrorCode() + ": " + e.getErrorMessage());
+                progress.dismiss();
             }
         };
+    }
+
+    public void startProgress(String title) {
+        progress.setTitle(title);
+        progress.show();
+    }
+
+    public void stopProgress() {
+        progress.dismiss();
     }
 }
