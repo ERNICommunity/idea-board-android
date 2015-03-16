@@ -1,5 +1,9 @@
 package community.erninet.ch.ideaboard.adapter;
 
+/**
+ * Not to be used if RecyclerView works without issues
+ */
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
