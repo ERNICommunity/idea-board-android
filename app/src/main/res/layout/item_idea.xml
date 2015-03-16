@@ -67,4 +67,16 @@
         app:tagLayoutColor="#b5b5cc"
         app:tagTextColor="#ffffff"
         app:tagTextSize="4sp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/ideaTagsCloud"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
+
 </RelativeLayout>
