@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import community.erninet.ch.ideaboard.R;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment {
 
 
     public LoginFragment() {
@@ -34,29 +35,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        Button myButton = (Button) this.getView().findViewById(R.id.login_loginform);
+        //attach listener
+        myButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText myUser = (EditText) getView().findViewById(R.id.username_loginform);
+                EditText myPwd = (EditText) getView().findViewById(R.id.password_loginform);
+                ((MainActivity) getActivity()).authorizeUser(myUser.getText().toString(), myPwd.getText().toString());
+            }
+        });
     }
 
-    /**
-     * Handle a click on either the login button or the link to the sign-up form
-     *
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-        // forward to sign-up page
-        if (v.getId() == R.id.textView2) {
-            //TODO sign-up form here
-        } else {
-            EditText myUser = (EditText) getView().findViewById(R.id.username_loginform);
-            EditText myPwd = (EditText) getView().findViewById(R.id.password_loginform);
-            ((MainActivity) getActivity()).authorizeUser(myUser.getText().toString(), myPwd.getText().toString());
-        }
-
-    }
 }
