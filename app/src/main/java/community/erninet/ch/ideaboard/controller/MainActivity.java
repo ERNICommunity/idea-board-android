@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import community.erninet.ch.ideaboard.R;
 import community.erninet.ch.ideaboard.adapter.UserBackend;
 import community.erninet.ch.ideaboard.application.Globals;
+import community.erninet.ch.ideaboard.model.JSONResponseException;
+import community.erninet.ch.ideaboard.model.User;
 
 
 public class MainActivity extends ActionBarActivity
@@ -45,13 +48,15 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        attachUserCallbacks();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (!((Globals) getApplication()).isUserLoggedIn()) {
-            //display login fragment
+            getFragmentManager().beginTransaction().replace(R.id.container, LoginFragment.newInstance(), "Login").commit();
         }
     }
 
@@ -62,25 +67,27 @@ public class MainActivity extends ActionBarActivity
 
         // update the main content by replacing fragments
 
-        switch (position) {
+        if (((Globals) getApplication()).isUserLoggedIn()) {
 
-            case 1: // Section 2
-                transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance(), "DISCUSS_AND_VOTE")
+            switch (position) {
 
-                        .commit();
-                break;
-            case 2: // Section 3
-                transaction.replace(R.id.container, OverviewFragment.newInstance(), "OVERVIEW")
-                        .commit();
-                break;
-            default: // Section 1, default as initial position is 0
+                case 1: // Section 2
+                    transaction.replace(R.id.container, DiscussAndVoteFragment.newInstance(), "DISCUSS_AND_VOTE")
 
-                transaction.replace(R.id.container, MyIdeasFragment.newInstance(), "MY_IDEAS")
-                        .commit();
+                            .commit();
+                    break;
+                case 2: // Section 3
+                    transaction.replace(R.id.container, OverviewFragment.newInstance(), "OVERVIEW")
+                            .commit();
+                    break;
+                default: // Section 1, default as initial position is 0
+
+                    transaction.replace(R.id.container, MyIdeasFragment.newInstance(), "MY_IDEAS")
+                            .commit();
+
+            }
 
         }
-
-
     }
 
     public void restoreActionBar() {
@@ -153,5 +160,36 @@ public class MainActivity extends ActionBarActivity
             return true;
         }
         return false;
+    }
+
+    private void attachUserCallbacks() {
+        //event handler when user could not be loaded
+        callHandlerGetUser = new UserBackend.OnConversionCompleted<User>() {
+            @Override
+            public void onConversionCompleted(User user) {
+                //display username
+                Log.d("User successfully load", user.getUsername());
+                //after authentication of the user, update the mood list
+                ((Globals) getApplication()).setUser(user.getUsername());
+                ((Globals) getApplication()).setUserLoggedIn(true);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, MyIdeasFragment.newInstance(), "MY_IDEAS").commit();
+            }
+        };
+        //very important event
+        //event handler for loading the user. log that something went wrong
+        //and forward the user to the login-page (where he could navigate further to the
+        //sign-up page
+        errorHandlerUser = new UserBackend.OnJSONResponseError() {
+            @Override
+            public void onJSONResponseError(JSONResponseException e) {
+                // Assuming that the error is due to invalid user/password. The actual error is printed to Log. Fixes issue #40.
+                Toast.makeText(
+                        getBaseContext(),
+                        "Username and/or password not valid.\nPlease check and try again.",
+                        Toast.LENGTH_LONG).show();
+
+                Log.d("Something went wrong", e.getErrorCode() + ": " + e.getErrorMessage());
+            }
+        };
     }
 }

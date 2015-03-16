@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import community.erninet.ch.ideaboard.R;
 
@@ -52,8 +53,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if (v.getId() == R.id.textView2) {
             //TODO sign-up form here
         } else {
-            //auth
-
+            EditText myUser = (EditText) getView().findViewById(R.id.username_loginform);
+            EditText myPwd = (EditText) getView().findViewById(R.id.password_loginform);
+            ((MainActivity) getActivity()).authorizeUser(myUser.getText().toString(), myPwd.getText().toString());
         }
 
     }
