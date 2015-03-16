@@ -1,6 +1,9 @@
 package community.erninet.ch.ideaboard.application;
 
 import android.app.Application;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.content.Context;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,12 @@ public class Globals extends Application {
     private boolean userLoggedIn = false;
     private String user = "Dummy User";
     private ArrayList<Idea> allIdeas = null;
+    private final ConnectivityManager connectivityManager;
+
+    public Globals() {
+        connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    }
 
     public String getUser() {
         return user;
@@ -43,6 +52,11 @@ public class Globals extends Application {
 
     public void setAllIdeas(ArrayList<Idea> allIdeas) {
         this.allIdeas = allIdeas;
+    }
+
+    public boolean isOnline() {
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected();
     }
 }
 

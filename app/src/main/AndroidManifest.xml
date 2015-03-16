@@ -13,6 +13,7 @@
         android:name="android.community.erni.ernimoods.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
     <uses-permission android:name="android.community.erni.ernimoods.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".application.Globals"

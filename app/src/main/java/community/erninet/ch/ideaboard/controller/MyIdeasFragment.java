@@ -1,5 +1,7 @@
 package community.erninet.ch.ideaboard.controller;
 
+import android.app.AlertDialog;
+import android.app.Application;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,6 +69,8 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
     public void onResume() {
         super.onResume();
 
+        Globals globals = (Globals) getActivity().getApplication();
+
         //Give the button to idea some functionality
         ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageViewAddIdea);
         //Add on click handler
@@ -95,7 +99,11 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         //the service also needs to know about the adapter. it will be updated when we get results from the backend
         ideaService.setAdapter(adapterIdea);
         //call mock service. everything that follows is handled by the (mock)-service, retrofit and the adapter
-        ideaService.getIdeas();
+        if(globals.isOnline()) {
+            ideaService.getIdeas();
+        } else {
+            showNoConnectionDialog();
+        }
 
     }
 
@@ -112,6 +120,13 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
         //add the newly created user
         //TODO: user real implementation. The current implementation only adds a new idea locally. Didn't want to mock a post-service :)
         ideaService.createIdea(addUser);
+    }
+
+    private void showNoConnectionDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle("No Internet Connection");
+        alertDialog.setPositiveButton("Ok", null);
+        alertDialog.show();
     }
 
 }
