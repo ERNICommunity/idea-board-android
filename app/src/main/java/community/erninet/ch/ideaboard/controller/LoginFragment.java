@@ -57,12 +57,7 @@ public class LoginFragment extends Fragment implements SignUpDialogFragment.Sign
         // then lock it closed. Note that the fragment_navigation_drawer (listview) needs the property android:layout_gravity="start" defined
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.START);
 
-        // second, get rid of the toggle button
-        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getFragmentManager()
-                .findFragmentById(R.id.navigation_drawer);
-        drawerFragment.getmDrawerToggle().setDrawerIndicatorEnabled(false);
-
-        // also as a bonus, hide the arrow on the action bar (because we cannot navigate up)
+        // second, hide the arrow on the action bar (because we cannot navigate up)
         ActionBar actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
         if (actionBar != null) {
             // disable the button, remove the caret and remove the icon. Don't ask me why this takes 3 lines.
