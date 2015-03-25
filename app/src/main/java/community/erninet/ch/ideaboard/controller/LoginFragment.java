@@ -1,10 +1,13 @@
 package community.erninet.ch.ideaboard.controller;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import community.erninet.ch.ideaboard.model.User;
 
 public class LoginFragment extends Fragment implements SignUpDialogFragment.SignUpDialogListener {
 
+    public static final String TAG = "LoginFragment";
     private SignUpDialogFragment mSignUpDialog = null;
 
 
@@ -36,6 +40,7 @@ public class LoginFragment extends Fragment implements SignUpDialogFragment.Sign
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         lockNavigationDrawer();
+
 
 
     }
@@ -56,6 +61,17 @@ public class LoginFragment extends Fragment implements SignUpDialogFragment.Sign
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
         drawerFragment.getmDrawerToggle().setDrawerIndicatorEnabled(false);
+
+        // also as a bonus, hide the arrow on the action bar (because we cannot navigate up)
+        ActionBar actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            // disable the button, remove the caret and remove the icon. Don't ask me why this takes 3 lines.
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
+        } else {
+            Log.e(TAG, "ActionBar returned null.");
+        }
     }
 
 

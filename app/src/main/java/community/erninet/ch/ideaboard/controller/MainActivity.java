@@ -35,6 +35,7 @@ public class MainActivity extends ActionBarActivity
 
     //progress bar to notify user about communication with the backend
     private ProgressDialog progress;
+    private ActionBar actionBar;
 
 
     @Override
@@ -109,7 +110,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
 
