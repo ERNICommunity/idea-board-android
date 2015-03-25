@@ -45,6 +45,32 @@ public class LoginFragment extends Fragment implements SignUpDialogFragment.Sign
 
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        unlockNavigationDrawer();
+    }
+
+    /** this method simply undoes everything in lockNavigationDrawer()
+     * called when the LoginFragment is swapped out for another fragment
+     */
+    private void unlockNavigationDrawer() {
+
+        DrawerLayout drawerLayout = (DrawerLayout)getActivity().findViewById(R.id.drawer_layout);
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+        ActionBar actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            // enable the buttons
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        } else {
+            Log.e(TAG, "ActionBar returned null.");
+        }
+    }
+
     /**
      * this method prevents the user from using the navigation drawer by sliding
      * or the toggle button
@@ -57,7 +83,7 @@ public class LoginFragment extends Fragment implements SignUpDialogFragment.Sign
         // then lock it closed. Note that the fragment_navigation_drawer (listview) needs the property android:layout_gravity="start" defined
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.START);
 
-        // second, hide the arrow on the action bar (because we cannot navigate up)
+        // second, hide the home button on the action bar (because we cannot navigate up)
         ActionBar actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
         if (actionBar != null) {
             // disable the button, remove the caret and remove the icon. Don't ask me why this takes 3 lines.
