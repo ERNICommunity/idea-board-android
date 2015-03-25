@@ -3,6 +3,9 @@ package community.erninet.ch.ideaboard.controller;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import android.support.v4.app.FragmentManager;
 import community.erninet.ch.ideaboard.R;
 import community.erninet.ch.ideaboard.model.User;
 
@@ -32,7 +35,27 @@ public class LoginFragment extends Fragment implements SignUpDialogFragment.Sign
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        lockNavigationDrawer();
 
+
+    }
+
+    /**
+     * this method prevents the user from using the navigation drawer by sliding
+     * or the toggle button
+     * Note that these two things have to be handled separately.
+     */
+    private void lockNavigationDrawer() {
+        // first, disable user sliding the drawer open
+        // get a reference to the drawerlayout
+        DrawerLayout drawerLayout = (DrawerLayout)getActivity().findViewById(R.id.drawer_layout);
+        // then lock it closed. Note that the fragment_navigation_drawer (listview) needs the property android:layout_gravity="start" defined
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.START);
+
+        // second, get rid of the toggle button
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getFragmentManager()
+                .findFragmentById(R.id.navigation_drawer);
+        drawerFragment.getmDrawerToggle().setDrawerIndicatorEnabled(false);
     }
 
 

@@ -47,6 +47,10 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private NavigationDrawerCallbacks mCallbacks;
 
+    public ActionBarDrawerToggle getmDrawerToggle() {
+        return mDrawerToggle;
+    }
+
     /**
      * Helper component that ties the action bar to the navigation drawer.
      */
