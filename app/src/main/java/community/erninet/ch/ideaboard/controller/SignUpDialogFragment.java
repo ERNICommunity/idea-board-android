@@ -47,11 +47,6 @@ public class SignUpDialogFragment extends DialogFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up_dialog, container, false);
 
-        // disable the navigation drawer for this fragment
-        // get a reference to the navigation drawer
-        DrawerLayout drawerLayout = (DrawerLayout)view.findViewById(R.id.drawer_layout);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, drawerLayout);
-
         // handler that handles the event if a user is successfully created
         //the method yields the userid as a string
         callHandlerPost = new UserBackend.OnConversionCompleted<String>() {
