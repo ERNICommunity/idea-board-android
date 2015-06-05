@@ -5,7 +5,7 @@ This is the ERNI Idea Board app for Android, developed during the Hack Sessions 
 
 ## Important note for new project members
 
-The best way to get up and running is to download the latest stable version of Android Studio. Currently version 1.0.x.
+The best way to get up and running is to download the latest stable version of Android Studio. Currently version 1.2.x.
 
 Please install the latest platform tools and API 21 (Android Lollipop) from the SDK Manager.
 
