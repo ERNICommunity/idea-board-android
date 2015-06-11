@@ -3,6 +3,7 @@ package community.erninet.ch.ideaboard.controller;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,10 +72,10 @@ public class MyIdeasFragment extends Fragment implements IdeaDialogFragment.Edit
 
         Globals globals = (Globals) getActivity().getApplication();
 
-        //Give the button to idea some functionality
-        ImageView myImage1 = (ImageView) getActivity().findViewById(R.id.imageViewAddIdea);
+        //Give the floating action button for creating a new idea some functionality
+        FloatingActionButton newIdeaFAB = (FloatingActionButton) getActivity().findViewById(R.id.fab_my_ideas);
         //Add on click handler
-        myImage1.setOnClickListener(new View.OnClickListener() {
+        newIdeaFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Create new dialog fragment
