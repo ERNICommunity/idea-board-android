@@ -1,6 +1,8 @@
 ERNI Idea Board for Android
 ===========================
 
+:warning: **REPOSITORY NOT ACTIVE SINCE 2015 Dependabot alerts disabled**
+
 This is the ERNI Idea Board app for Android, developed during the Hack Sessions and the ERNI Development Day.
 
 ## Important note for new project members
